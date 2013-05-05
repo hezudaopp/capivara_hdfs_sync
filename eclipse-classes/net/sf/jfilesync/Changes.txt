@@ -1,0 +1,449 @@
+Version 0.8.10 (Jul 2012)
+General:
+- updated jsch library to version 0.1.48
+- massive code cleanup, dropped theme support
+Bug fixes:
+- updated BSD grammar to fix parse errors
+- set default file encoding for Mac app file to UTF-8
+- fixed: ignore hidden files does not work on Mac
+- fixed: diff of text files does not work when selecting file in right panel
+- fixed: user names containing "." not working when using cli commandos 
+- fixed: NullPointerException on Mac OS X when highlighting files (DefaultTableCellRenderer problem)
+
+Version 0.8.9 (Oct 2010)
+General:
+- added Dutch translation
+- added BSD ls plugin (works on Mac OS X)
+- added support for Mac OS X (app file)
+- updated favorites dialog for saving details about connections
+
+Bug fixes:
+- fixed installer permission problems for Windows and Mac
+- fixed: clear control center when disconnect clicked and connection
+  has been lost previously
+
+Version 0.8.8 (Feb 2010)
+General:
+- added case insensitive sort of file names (optional)
+- updated commons net ftp from 1.4.1 to 2.0
+- upgraded IzPack installer to 4.3.3
+
+Bug fixes:
+- copy function reverted to java.io to overcome several problems
+  (cancellation or copying large files)
+- sync progress window does not always close properly
+- deleting does not follow symlinks anymore 
+
+Version 0.8.7 (Jun 2009)
+General:
+- improved layout of collect files dialog
+- improved speed of copy function to copy files locally with java.nio
+
+Bug fixes:
+- fixed: wrong height of status panel in Nimbus style
+- fixed: not entire row is highlighted when multiple rows are selected 
+- fixed: reset currently shown path when aborting a sync 
+- fixed: shortcut does not work with KDE/Linux (cannot find bin directory)
+- fixed: language used and selected not the same in 0.8.6
+- fixed: language dialog hidden by splash screen
+- fixed: files not copied if target directory already exists
+- fixed: #2783603, "ignore .DS and ._files" cannot be switched off
+- fixed: added installer for win64 (x86_64)
+- fixed: Dupfinder accidently deletes files if target directory (of move) is 
+         not writable or does not exist 
+
+Version 0.8.6 (Feb 2009)
+General:
+- rewrote Dupfinder algorithm for better performance
+- massive code clean up
+- added connection observer: Capivara is notified if a connection is lost
+- added keep alive option: keeps sftp/ftp connections alive
+- added password store: passwords can now be saved (Triple DES = DESede)
+
+Bug fixes:
+- fixed: focus lost when reloading directories
+
+Version 0.8.5.1
+Bug fixes:
+- Capivara crashed due to missing Italian flag (added to the bundle)
+
+Version 0.8.5
+General:
+- added option to ignore .DS_Store and ._ files (Mac OS X)
+- added option to specify max time difference [in secs] between two files for time sync
+- added Spanish translation [Argentina] (Jorge L.)
+- added Spanish translation [Spain] (John Smith)
+- fixed encodings of translations to Chinese and Japanese
+- do not reload directories if no synchronization has been performed
+- set initial local directory for startup
+
+Bug fixes:
+- workaround for hidden file bug Java SDN [6350200] in local Windows plugin
+- fixed: if path in command line ends with / then synchronization fails with IO error
+- fixed: encoding of Chinese characters
+
+Version 0.8.4
+General:
+- added option to change font size of file table
+- improved mouse selection model in SyncExplorer
+- IzPack installer updated
+- added diff feature in SyncExplorer
+
+Bug fixes:
+- workaround for FTP library bug (see commons net ftp bug NET-188) (reported by Mihai Dobrescu)
+- fixed bug to check connection state in FTP
+- fixed bug in file transfer if connection gets lost just before the transfer starts
+- fixed bug [1912764]: file corruption due to faulty JRE API on Windows
+
+Version 0.8.3
+General:
+- added -c (--config) option which can be used to set the path to the
+  configuration files of Capivara
+- added warning if case insensitive sync is enabled and 2 files in one directory
+  are found with caseInsensitiveName(f1) = caseInsensitiveName(f2),
+  e.g. fileXYZ and filexyz
+- made duplication finder a property of a connection (removed global button)
+- added support for HOME/END key in file viewer
+- updated SSHTools to 0.2.9
+- updated JSch to 0.1.34
+- revised file transfer cancel code in SSHTools and JSch plug-in
+- added noop as default sync direction
+- password authentication handling in JSch plugin improved
+- added status bar at bottom of UI
+- shortened delay when opening internal viewer
+- fixed font problems using GTK widgets
+- added permission handling in FTP plugin
+- added file synchronization by name and size
+
+Bug fixes:
+- [sync] fixed case insensitive bug : enabled option 'case insensitive' can lead
+  to incorrect comparison results (sort function was still case sensitive)
+- [gnu plugin] fixed change directory bug, a manual change of the current directory
+  could fail even if it is a valid path
+- [options dialog] changes in options dialog could not automatically be saved
+  due to a wrong path to the configuration file
+- [gui] fixed a problem with copy dialog artifacts using Gnome
+
+Version 0.8.2.1
+Bug fixes:
+- fixed path escaping in installer
+
+Version 0.8.2
+General:
+- Massive clean up and refactoring
+- Added duplication finder
+
+Bug fixes:
+- Changed selection model in SyncExplorer, click on right mouse button
+  will also change the currently selected file
+
+Version 0.8.1.2
+General:
+- added Italian translation (Simone Capitani)
+
+Version 0.8.1.1
+General:
+
+Bug fixes:
+- fixed file filter support which was broken in 0.8.1
+
+Version 0.8.1
+General:
+- added detection of supported encoding by JVM
+- added selection of control encoding in FTP plug-in
+
+Bug fixes:
+- fixed bug [1559100] host combo box loses input
+- fixed "too many open files" bug while recursively setting permissions
+
+Version 0.8.0
+General:
+- Added support to select an encoding when opening a connection
+- Added font utilities for determining font metrics
+- Added UTF-8 support for FTP connections
+- Added additional SFTP plug-in (jsch)
+- Added bidirectional synchronization option for time syncs
+- Added case insensitive synchronization option and case insensitive file system support
+- Added option panel that lists Capivara's key bindings (shortcuts)
+- Rewrote locale handling, new/updated locales can now be dynamically loaded from
+  directory .jfilesync/locales/ in the user's home directory
+- Added: look and feel settings can now be saved and restored
+- Added: option to set the length of the hostname in the tab title
+- Added ChangeLog option to About menu
+- Added shortcuts (mkdir - F7)
+- Added scroll bars to list of favorites
+
+Bug fixes:
+- UTF-8 font display problem in SyncExplorer
+- symlink target detection for FTP/SFTP plugin
+- "Too many open files" when collecting files using the GNU plugin
+- synchronization stalls when Capivara tries to copy files that contain
+  corrupt properties (e.g. modification times)
+- NullPointerException when reloading a directory and ".." is selected
+- delete dialog is shown even if only ".." has been selected
+- changed height of textfields in status line when using GTK look and feel
+- synchronization is immediately aborted when a file cannot be deleted
+- file system root (c:,e:) on Windows may not be updated correctly when the
+  user presses the home button or enters a bookmark
+
+Version 0.7.6.1
+General:
+- Added Traditional Chinese translation (Kuang-Chang Lin)
+
+Version 0.7.6
+General:
+- Sync preview components have been revised and polished.
+- Added Polish translation (Grzegorz Blonski)
+- Action events (enter, escape) enabled in file rename dialog .
+- File viewer selection model revised and improved.
+  Selection is kept when table is reloaded.
+
+Version 0.7.5.1
+Bug fixes:
+- Fixed file copy bug on Windows.
+- Quick connect dialog (popup trigger on connect button) doesn't work
+  on Windows.
+- Quick connect doesn't work for right pane browsers.
+- File viewer update. Large files are loaded much quicker.
+  Added close frame event (default F3).
+
+Version 0.7.5
+
+General:
+- Added Japanese translation (Yasuo Tsuruha)
+- Added quick connect option. User can quickly connect to his favourites.
+  (right mouse click on the connect button (Windows/Linux/Unix))
+- Added FAT time workaround for all connections.
+- Massive speed improvement through an update of the file collecting algorithm.
+  It's now completely multithreaded as collecting files is performed
+  on both connections concurrently.
+- Added directory bookmark handling. A user can save his favorite directories
+  and revisit them later quickly.
+- Code revision.
+
+Bug fixes:
+- Fixed. Bug in copy progress monitor. GUI thread does not sleep as expected
+  and hence, it consumes far too much CPU time which makes the copy process
+  slower.
+- Selected filters have not been applied to all files in the synchronziation
+  tree.
+- Fixed FTP related problems. Rewrote code to determine if a file exists.
+- Fixed. Backward compatibility problem with user selected translations
+  that didn't exist in older releases.
+
+Version 0.7.4
+
+General:
+- Added French translation (Charles Duysinx)
+- Upgrade of ftp plugin: from commons net 1.4.0 to 1.4.1
+- Added file filter support in synchronization.
+- Subsequent error messages in a copy or sync process can be ignored.
+- Support for Socks proxy (4/5) in ssh plugin.
+- added patched version of SSHTools (0.2.9.1-sahu)
+- added command line option 'gnu' as replacement for 'local'
+
+Bug fixes:
+- Connection dialog update: host prefix combobox revised
+- FTP plugin: cancelling of put/get
+- Insert a leading zero in minutes at "estimated time to finish" when
+  hours>0 and minutes<10
+- Capivara detects corrupted configuration files and handles this problem.
+- Fixed. NullPointerException when performing a hash compare using a remote
+  connection.
+- GnuPlugin. Links to directories get properly resolved and dereferenced.
+- TLocal_plugin. Link detection revised and corrected. Thanks
+  to Ralf Hoffmann for his help.
+- SSHTools: 0.2.9.1 fixes problems with UTF-8 encoded file names
+- Collecting files for sync aborts when some file cannot get opened.
+  Now the user can decide if he wants to add this restricted file to the
+  exclude list. Synchronization of restricted directories is therefore also
+  possible.
+- When changing to a parent directory on a remote connection (SFTP/FTP)
+  the child directory that we are coming from was not selected (Windows).
+
+Version 0.7.3
+
+General:
+- Updated Chinese language pack (Joel)
+- Updated Brazilian Portuguese language pack (Sergio Henrique)
+- Replaced labels of synchronization dialogs by their locale representation.
+- Deleted all deprected classes. Code cleanup.
+- Massive speed improvement for constructing the synchronization tree.
+  Before, the tree builder computed SHA-1 and MD5 hash sum for all files
+  disregarding if files are already marked as unique. Now, it does only
+  compute the hash code when a file is not unique and the corresponding file
+  has the same file size.
+
+Bug fixes:
+- Skipping an existing file or directory will result in unprecise copy
+  statistics.
+- Copying a directory without having write permissions causes the copy thread
+  to fail. The newly created directory is already given new permissions before
+  files have been copied into. Subsequent attempts to append files will fail.
+- When option "open a directory with a single mouse click" is enabled, the user
+  is unable to select directories. Fixed. User can now hold down CTRL and click
+  mouse button1 to select directories.
+- LinkExistsDialog contains a method that is only available for JDK5. This method
+  has been replaced in order to guarantee full Java 1.4.x compatibility.
+
+Version 0.7.2
+
+General:
+- Added option "expert mode", if disabled: user cannot sync with SHA-1/MD5
+  using remote connections, GNU plugin not available
+- Added hotkeys: C+n rename file, F3 start viewer
+- Added option: always exit without prompt when closing Capivara
+- Change dialog containing saved favourites. Only favourites for remote
+  connections may be saved.
+- Added: Choosing a port for remote connections.
+- Added GNU plugin which is a replacement for the local plugin on Linux machines.
+  It works with any Unix like system that uses the GNU ls command.
+  The plugin is based on GNU ls (list directory contents).
+  So, the file informations such as name, size, permissions etc. are taken from
+  the GNU ls output.
+- Selection behavior of entries in file table changed. When a directory gets
+  listed in another panel, the keyboard focus will stay in the currently active
+  panel. (Nice small patch by Ralf Hoffmann)
+
+Bug fixes:
+- fixed: Storing a file on FTP servers damages the target file when target has same name.
+- fixed: Infinite loop: Another connection with this name already exists
+
+Version 0.7.1
+
+General:
+- Scrollbar behavior changed when changing to a parent directory which has
+  more entries than the filetable can display.
+
+Bug fixes:
+- fixed: directory permissions are not preserved
+
+Version 0.7.0
+
+General:
+- added new keystrokes (see the howtos)
+- added Chinese language pack (thanks to Joel Gump)
+- Copying from a remote directory to a remote target is now completely
+  transparent to the user. Only accumulated statistics of both operations,
+  put and get, will be shown.
+- Complete rewrite of the file copy classes (+statistics).
+  Copying and syncing share one code base now. As a result, the sync progress
+  dialog can retrieve statistical data of files which are transferred.
+- The user can now choose to delete incomplete files in case of IO errors.
+
+Bug fixes:
+- fixed: file copy option "preserve permissions if available" is not saved
+- After the user has cancelled the file transfer, the user gains control
+  when the copy thread finally exits.
+- The local plugin throws IOException when a file cannot be deleted and
+  exits. Now, a confirmation dialog will be prompted to continue deleting files.
+
+Version 0.6.2.1
+
+Bug fixes:
+- possible deadlock when collecting file trees for synchronization
+- MD5 sums were reported as SHA-1 sums when they differed
+
+Version 0.6.2
+
+General:
+- added synchronization support for SHA-1
+- added cancel button to status line, user can now cancel current worker threads
+- the last visited directory will be automatically selected when
+  the user goes up in the file tree
+- added new dialog with stats/progressbar for comparing two directories (sync)
+- added workaround for FAT timestamps (virtual change of resolution, sync),
+  thanks to Ralf Hoffmann for code improvement
+- added deletion status panel, when deleting files takes too long, the user
+  can now cancel the operation
+- added new worker GUI model, GUI components now plug dynamically into the
+  corresponding panel when a worker is executed
+
+Bug fixes:
+- fixed focus bug when hitting tab after startup
+- changed non thread-safe TFileDataCollector (did not propagate IOExceptions) for
+  DataCollectWorker in SyncTreeBuilder
+- changed DataCollectWorker to pass all occurring IOExceptions to its caller
+
+Version 0.6.1
+
+General:
+- FTP plugin can now list hidden files. Changed LIST command to "LIST -a"
+  in FTPCommand of commons.net.
+- new options for synchronization view: hide/show files and directories
+
+Bug fixes:
+- fixed: deletion of files failed while syncing
+
+Version 0.6.0
+
+General:
+- added file permissions handling for SFTP
+- added file size view in bytes
+- added option to show only the difference of sync trees
+- added patched version of SSHTools (0.2.9-pre1) - fixes file permission handling
+
+Bug fixes:
+- preserve modification time works on directories
+  The SSH_FXP_SETSTAT does only need to contain the changed attributes.
+  use FileAttributes attr = new FileAttributes();  instead of
+  FileAttributes attr  = sftpClient.stat(file);
+- fixed size of override dialog for German
+
+Version 0.5.3
+
+General:
+
+- added plugin options
+- added Key Authentication for SFTP plugin
+- added protocol information in status bar
+- added command line options (thanks to Ralf Hoffmann for his support)
+- added patched version of SSHTools (0.2.8)
+
+Bug fixes:
+- Focus problem in DataTable seems to be solved now.
+  DataTable does not loose the focus when the directory is changed
+  for Java Swing binding.
+- SSHTools patch: key exchange after tranferring 1 GB will cause disconnect
+- SSHTools patch: can now be compiled with Java Tiger
+
+Version 0.5.2
+
+General:
+- cleaned up images and reduced color maps and size
+
+Bug fixes:
+- language selection dialog at program start works now
+  with JDK 1.4.x
+
+Version 0.5.1
+
+Bug fixes:
+- just fixed a bug in the installation package
+- one essential jar files was not included in the pack
+
+Version 0.5
+
+General:
+- substituted log4j logging code with java.util.logging
+- code refactoring
+- rewrote parts of code to get a clean plugin model for connection plugins
+- OptionDialog lists available connection plugins
+- added command line options --nosplash, --left, --right, --help
+- added option "preserve modification time"
+- implemented option "double click opens directory"
+- implemented option "confirm open editor for file larger than"
+- adjusted the size of JTextFields to look pretty on Windows
+
+Bug fixes:
+- synchronization is now possible in root and first level directories
+  (/ or /home)
+- changed focus traversal policy in ConnectionDialog
+- time synchronization did not work as expected when
+  the files on left panel were newer than the files on the right
+- time synchronization option: copy only newer files
+- fixed theme path bug on Windows (file separator)
+- fixed bug of allowing to select files on either side at the same time
+- fixed bug in sorting file sizes
+- fixed bug in ConfirmOverrideDialog
+

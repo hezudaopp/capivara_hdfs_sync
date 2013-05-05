@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<theme name="DefaultTheme">
+
+  <info>
+    <version>0.1</version>
+    <author>Sascha Hunold</author>
+    <license>GPL</license>
+  </info>
+
+
+  <global>
+
+  <!--
+    <standards>
+       <color type="foreground" value="FF0000" />
+       <color type="background" value="FFFFEE" />
+    </standards>
+   -->
+
+    <component type="button" class="controlbuttons">
+      <dimension width="35" height="28" />
+    </component>
+
+  </global>
+
+
+  <components>
+
+	<component type="button" id="button_copy">
+	  <imageicon file="save_all.png" />
+	</component>
+
+	<component type="button" id="button_sync">
+	  <imageicon file="view_right.png" />
+	</component>
+
+	<component type="button" id="button_dupfinder">
+	  <imageicon file="gthumb.png" />
+	</component>
+
+	<component type="togglebutton" id="togglebutton_connection">
+	  <imageicon file="disconnected.png" />
+	  <selectedicon file="connected.png" />
+	  <pressedicon file="connecting.png" />
+      <dimension width="35" height="28" />
+	</component>
+
+    <component type="button" id="button_go_home" class="controlbuttons">
+	  <imageicon file="gohome.png" />
+	</component>
+
+    <component type="button" id="button_up" class="controlbuttons">
+	  <imageicon file="1uparrow.png" />
+	</component>
+
+    <component type="button" id="button_reload" class="controlbuttons">
+	  <imageicon file="reload.png" />
+	</component>
+
+    <component type="button" id="button_trash" class="controlbuttons">
+	  <imageicon file="edittrash.png" />
+	</component>
+
+    <component type="button" id="button_mkdir" class="controlbuttons">
+	  <imageicon file="folder_new.png" />
+	</component>
+
+    <component type="button" id="button_bookmark" class="controlbuttons">
+	  <imageicon file="stock-star.png" />
+	</component>
+
+  </components>
+
+</theme>
+

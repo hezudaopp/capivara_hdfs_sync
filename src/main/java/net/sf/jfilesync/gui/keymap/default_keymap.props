@@ -1,0 +1,13 @@
+copy.shortcut=F5
+mkdir.shortcut=F7
+delete.shortcut=F8
+delete.shortcut2=DELETE
+chdir.shortcut=ENTER
+switch-browser.shortcut=TAB
+reload.shortcut=C+r
+select-file.shortcut=INSERT
+browse-prev.shortcut=LEFT
+browse-next.shortcut=RIGHT
+viewer.shortcut=F3
+rename.shortcut=C+n
+select-dir-sync.shortcut=A+s

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.2
+Created-By: 1.6.0_33-b03-424-11M3720 (Apple Inc.)
+Built-By: Sascha Hunold
+Main-Class: net.sf.jfilesync.MainWin
+Class-Path: lib/j2ssh-core-0.2.9.jar lib/j2ssh-common-0.2.9.jar lib/co
+ mmons-logging.jar lib/commons-net-3.0.1.jar lib/oro-2.0.8.jar lib/jsc
+ h-0.1.48.jar lib/antlr-runtime-3.2.jar
+
+Name: common
+Specification-Title: ${project.spec.title}
+Specification-Version: ${project.version}
+Specification-Vendor: ${project.spec.vendor}
+Implementation-Title: ${project.imp.title}
+Implementation-Version: ${project.version} July 18 2012
+Implementation-Vendor: ${project.imp.vendor}
+
