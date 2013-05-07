@@ -51,14 +51,14 @@ public class ConnectionPluginManager {
   	 HDFS_PLUGIN			= 9; // Jawinton
 
   private final static int[] supportedProtocols = { 
-    LOCAL_PLUGIN,
-    J2SSH_SFTP_PLUGIN, 
-    JAKARTA_FTP_PLUGIN, 
-    GNU_PLUGIN, 
-    JSCH_SFTP_PLUGIN,
-    BSD_PLUGIN,
-    //J2SSH_SESSION_PLUGIN
-    HDFS_PLUGIN //Jawinton
+//    LOCAL_PLUGIN,
+//    J2SSH_SFTP_PLUGIN, 
+//    JAKARTA_FTP_PLUGIN, 
+//    GNU_PLUGIN, 
+//    JSCH_SFTP_PLUGIN,
+//    BSD_PLUGIN,
+//    J2SSH_SESSION_PLUGIN
+    HDFS_PLUGIN // Jawinton
   };
 
   public static String getPluginDescription(ConnectionPlugin plugin) {

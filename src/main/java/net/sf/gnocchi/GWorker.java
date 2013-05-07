@@ -69,7 +69,7 @@ public abstract class GWorker extends Thread {
       synchronized (this) {
         state = STATE_DIED;
         exception = ex;
-        // ex.printStackTrace();
+//        ex.printStackTrace();	// Jawinton
       }
     }
 

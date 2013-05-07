@@ -10,7 +10,7 @@ public class ConnectionStatusProxy extends AbstractConnectionProxyImpl {
 
     private final static Logger LOGGER = Logger
             .getLogger(ConnectionStatusProxy.class.getName());
-    private int timeout_sec = 30;
+    private int timeout_sec = 5;	// 30 to 5
     private ConnectionChecker conChecker;
     private final int ccID;
 

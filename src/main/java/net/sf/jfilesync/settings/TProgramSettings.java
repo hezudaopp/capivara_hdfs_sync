@@ -103,7 +103,7 @@ public class TProgramSettings {
                           OPTION_PRESERVE_PERM       = 14,
                           OPTION_FOLLOW_SYMLINKS_COPY= 15,
                           OPTION_FOLLOW_SYMLINKS_SYNC= 16,
-                          OPTION_TAB_TITLE_LENGTH    = 17,
+                          OPTION_TAB_TITLE_LENGTH    = 17,	// Jawinton
                           OPTION_TAB_FONT_SIZE       = 18,
                           OPTION_LOOK_AND_FEEL_CLASS  = 20,
                           OPTION_CONNECT_TO_LOCAL     = 21,

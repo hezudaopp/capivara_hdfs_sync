@@ -150,11 +150,11 @@ public class THdfs_plugin implements ConnectionPlugin{
 		boolean isConnected = false;
 		if (fs != null) {
 			isConnected = true;
-//			try {
-//				fs.exists(new Path("."));
-//			} catch (IOException e1) {
-//				isConnected = false;
-//			}
+			try {
+				ls();
+			} catch (Exception e) {
+				isConnected = false;
+			}
 		}
 		return isConnected;
 	}

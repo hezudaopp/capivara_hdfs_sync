@@ -59,7 +59,7 @@ public class TabbedBrowser extends JTabbedPane implements TEventListener, MouseL
 
   private final JFrame parent;
   private final HashMap<Integer, TControlCenter> ccMap = new HashMap<Integer, TControlCenter>();
-  private int tab_title_length = 12;
+  private int tab_title_length = 15;	// Jawinton 12 to 15
 
   public static final String ACTION_ADD_TAB = "add_tab";
   public static final String ACTION_DEL_TAB = "del_tab";
@@ -82,11 +82,13 @@ public class TabbedBrowser extends JTabbedPane implements TEventListener, MouseL
   }
 
   private void loadSettings() {
-    try {
-      tab_title_length = MainWin.config.getProgramSettings().getIntegerOption(TProgramSettings.OPTION_TAB_TITLE_LENGTH);
-    } catch (SettingsTypeException ste) {
-      LOGGER.severe(ste.getMessage());
-    }
+	  /* Jawinton */
+//    try {
+//      tab_title_length = MainWin.config.getProgramSettings().getIntegerOption(TProgramSettings.OPTION_TAB_TITLE_LENGTH);
+//    } catch (SettingsTypeException ste) {
+//      LOGGER.severe(ste.getMessage());
+//    }
+	  /* Jawinton */
   }
 
   public synchronized TControlCenter getFirstControlCenter() {

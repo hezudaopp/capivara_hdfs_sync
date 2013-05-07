@@ -48,7 +48,7 @@ public class ConfigDefinitions {
   public static final int STYLE_WINDOWS = 1;
   public static final int DEFAULT_STYLE = STYLE_WINDOWS;
 
-  public static final int WAIT_FOR_CONNECTION_TIMEOUT_S = 30;
+  public static final int WAIT_FOR_CONNECTION_TIMEOUT_S = 5;	// 30 to 5
 
   public static final String LINK_PREFIX = "@";
 

@@ -168,8 +168,9 @@ public class TConnectDialog extends JDialog implements ActionListener,
 
             pluginHash.put(new Integer(supProtos[i]), plugins[i]);
 
-            if (supProtos[i] == ConnectionPluginManager.LOCAL_PLUGIN) {
+            if (supProtos[i] == ConnectionPluginManager.HDFS_PLUGIN) {	// Jawinton
                 protoCombo.setSelectedIndex(i);
+            	protoCombo.setSelectedItem(plugins[i]);
                 resetPluginInfo(plugins[i]);
             }
         }
@@ -256,7 +257,7 @@ public class TConnectDialog extends JDialog implements ActionListener,
         JPanel encodingPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         encodingPanel.add(encodingCheckBox);
         encodingPanel.add(encodingCombo);
-        encodingPanel.add(GuiHelper.createExperimentalLabel());
+//        encodingPanel.add(GuiHelper.createExperimentalLabel());	// Jawinton
 
         String[] encodings = EncodingUtils.getDefaultEncodings();
         for (int i = 0; i < encodings.length; i++) {
@@ -266,7 +267,7 @@ public class TConnectDialog extends JDialog implements ActionListener,
         final JPanel caseInsensitivePanel = new JPanel(new FlowLayout(
                 FlowLayout.LEFT));
         caseInsensitivePanel.add(caseInsensitiveCheckBox);
-        caseInsensitivePanel.add(GuiHelper.createExperimentalLabel());
+//        caseInsensitivePanel.add(GuiHelper.createExperimentalLabel());	// Jawinton
 
         final JPanel keepAlivePanel = new JPanel(
                 new FlowLayout(FlowLayout.LEFT));
@@ -274,9 +275,11 @@ public class TConnectDialog extends JDialog implements ActionListener,
 
         JPanel advPanel = new JPanel();
         advPanel.setLayout(new BoxLayout(advPanel, BoxLayout.Y_AXIS));
-        advPanel.add(encodingPanel);
-        advPanel.add(caseInsensitivePanel);
-        advPanel.add(keepAlivePanel);
+        /* Jawinton */
+//        advPanel.add(encodingPanel);
+//        advPanel.add(caseInsensitivePanel);
+//        advPanel.add(keepAlivePanel);
+        /* Jawinton */
 
         insert(gb, gbc, portLabel, 1, 1);
         insert(gb, gbc, portPanel, 1, 1);
@@ -501,8 +504,12 @@ public class TConnectDialog extends JDialog implements ActionListener,
 
             if (activePlugin != null && !activePlugin.requiresPassword()) {
                 passwdField.setEnabled(false);
+                passwdLabel.setVisible(false);	// Jawinton
+                passwdField.setVisible(false);	// Jawinton
             } else {
-                passwdField.setEnabled(true);
+            	passwdLabel.setVisible(true);
+            	passwdField.setVisible(true);	// Jawinton
+                passwdField.setEnabled(true);	// Jawinton
             }
 
             if (activePlugin.requiresPort()) {
@@ -511,7 +518,6 @@ public class TConnectDialog extends JDialog implements ActionListener,
                 portTextField.setText(Integer.toString(activePlugin
                         .getDefaultPort()));
             }
-
         }
 
         resetPluginInfo(activePlugin);

@@ -131,6 +131,7 @@ import net.sf.jfilesync.plugins.net.EncodingProxy;
 import net.sf.jfilesync.plugins.net.KeepConnectionAliveProxy;
 import net.sf.jfilesync.plugins.net.PluginConnectException;
 import net.sf.jfilesync.plugins.net.TConnectionData;
+import net.sf.jfilesync.plugins.net.items.AbstractLocalPlugin;
 import net.sf.jfilesync.prop.LanguageBundle;
 import net.sf.jfilesync.service.unify.DupController;
 import net.sf.jfilesync.service.unify.DupExplorer;
@@ -181,7 +182,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
   // GUI stuff
   private TStatusLine statusLine = new TStatusLine();
   private StatusPanel statusPanel = new StatusPanel();
-  private JToggleButton connectButton;
+//  private JToggleButton connectButton;
   private JScrollPane scrollPane;
   private JComboBox pathBox;
   private final BookmarkPanel bookmarkPanel = new BookmarkPanel();
@@ -309,8 +310,10 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
 
     statusLine.addTAbstractGUIElementListener(this);
 
+    /* Jawinton */
     // connectButton =
     // MainWin.themeFactory.createToggleButton("togglebutton_connection");
+    /*
     connectButton = new JToggleButton();
     connectButton.setIcon(new ImageIcon(getClass()
         .getResource("/net/sf/jfilesync/gui/themes/default/disconnected2.png")));
@@ -326,7 +329,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
     connectButton.setFocusable(false);
     connectButton.setToolTipText(LanguageBundle.getInstance().getMessage("button.tooltip.connect"));
     connectButton.addMouseListener(new QuickConnectListener(ccID));
-
+    */
     final String[] roots = { "/" };
     rootBox = new TRootChooser(this, roots);
     // rootBox.setPreferredSize(new Dimension(45,20));
@@ -418,8 +421,8 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
   protected JPanel createTopPanel() {
     JPanel panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    panel.add(createButtonPanel());
-    panel.add(createActionPanel());
+//    panel.add(createButtonPanel());	// Jawinton
+//    panel.add(createActionPanel());	// Jawinton
     panel.add(createPathPanel());
     return panel;
   }
@@ -484,7 +487,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
     FlowLayout tightFlowLayout = new FlowLayout(FlowLayout.LEFT, 1, 1);
     JPanel buttonPanel = new JPanel(tightFlowLayout);
 
-    buttonPanel.add(connectButton);
+//    buttonPanel.add(connectButton);
     buttonPanel.add(dirUpButton);
     buttonPanel.add(homeButton);
     buttonPanel.add(reloadButton);
@@ -577,7 +580,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
 
     // show connect button
     setConnectionState(false);
-    connectButton.setEnabled(true);
+//    connectButton.setEnabled(true);
 
     rootBox.reset();
     rootBox.setEnabled(false);
@@ -629,13 +632,15 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
    */
   private void setConnectButtonState(boolean connected) {
     if (connected) {
-      connectButton.setSelected(true);
-      connectButton.setToolTipText(LanguageBundle.getInstance().getMessage("button.tooltip.disconnect"));
+    	// Jawinton
+//      connectButton.setSelected(true);
+//      connectButton.setToolTipText(LanguageBundle.getInstance().getMessage("button.tooltip.disconnect"));
       bookmarkPanel.setEnabled(true);
     } else {
       // make the disconnect button
-      connectButton.setSelected(false);
-      connectButton.setToolTipText(LanguageBundle.getInstance().getMessage("button.tooltip.connect"));
+    	// Jawinton
+//      connectButton.setSelected(false);
+//      connectButton.setToolTipText(LanguageBundle.getInstance().getMessage("button.tooltip.connect"));
       bookmarkPanel.setEnabled(false);
     }
 
@@ -828,7 +833,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
 
   // ------------------------------------------------------------------------
 
-  private void connectAction() {
+  private void connectAction() { // Jawinton, private to public
     if (conData == null) {
       conData = new TConnectionData(parent);
     }
@@ -840,22 +845,23 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
 
     doConnect();
   }
-
+  
   // ------------------------------------------------------------------------
 
   public void connect(TConnectionData data) {
     conData = data;
-
-    if (conData.getPlugin().requiresPassword()) {
-      if (conData.promptForConnectionData(true)) {
-        doConnect();
-      } else {
-        setConnectionState(false);
-      }
-    } else {
-      // local plugin
-      doConnect();
-    }
+    doConnect();
+//	Jawinton
+//    if (!(conData.getPlugin() instanceof AbstractLocalPlugin)) {	// Jawinton
+//      if (conData.promptForConnectionData(true)) {
+//        doConnect();
+//      } else {
+//        setConnectionState(false);
+//      }
+//    } else {
+//      // local plugin
+//      doConnect();
+//    }
 
   }
 
@@ -884,7 +890,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
       // disable all gui elements
       // setStateOfGUI(false);
       controlGroup1.setEnable(false);
-      connectButton.setEnabled(false);
+//      connectButton.setEnabled(false);	// Jawinton
 
       ConnectionEstablisher establisher = new ConnectionEstablisher(con);
       establisher.start();
@@ -917,7 +923,9 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
           emc.fireTEvent(this, ccID, new TStandardMessage(TMessage.ID.CONNECT_REPLY_MESSAGE));
         } else {
           // LOGGER.info("send not connected");
-          emc.fireTEvent(this, ccID, new ConnectionErrorMsg(connector.getErrorCode(), connector.getErrorMessage()));
+        	 // Jawinton
+          //emc.fireTEvent(this, ccID, new ConnectionErrorMsg(connector.getErrorCode(), connector.getErrorMessage()));
+        	emc.fireTEvent(this, ccID, new TStandardMessage(TMessage.ID.CONNECT_FAILURE_MESSAGE));
         }
       } else {
         LOGGER.finer("send timeout");
@@ -1016,7 +1024,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
 
   // ------------------------------------------------------------------------
 
-  private void disconnectAction() {
+  public void disconnectAction() {	// Jawinton, private to public
     if (con != null && con.isConnected()) {
       con.disconnect();
     }
@@ -1079,7 +1087,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
         clearCenter();
         TErrorHandling.reportError(TErrorHandling.ERROR_CONNECTION_FAILURE, "something is wrong !");
       }
-      connectButton.setEnabled(true);
+//      connectButton.setEnabled(true);
       controlGroup1.setEnable(true);
       break;
     // -----
@@ -1913,7 +1921,7 @@ public class TControlCenter extends JPanel implements ActionListener, TEventList
     LOGGER.info("enable CC : " + enable);
 
     controlGroup1.setEnable(enable);
-    connectButton.setEnabled(enable);
+//    connectButton.setEnabled(enable);
     fileDataTable.setEnabled(enable);
     if (con != null && con.getPlugin() != null) {
       contextControl.enableComponentsForPluginID(enable, con.getPlugin().getConnectionID());

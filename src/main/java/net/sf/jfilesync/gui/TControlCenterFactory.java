@@ -35,6 +35,9 @@ package net.sf.jfilesync.gui;
 import javax.swing.JFrame;
 
 import net.sf.jfilesync.event.TControlCenterBus;
+import net.sf.jfilesync.plugins.net.ConnectionPluginManager;
+import net.sf.jfilesync.plugins.net.TConnectionData;
+import net.sf.jfilesync.util.TMiscTool;
 
 public class TControlCenterFactory
 {
@@ -58,13 +61,18 @@ public class TControlCenterFactory
     TControlCenter cc = new TControlCenter(parent, ccNumber++);
     bus.addControlCenterBusListener(cc);
 
-    /*
+    /* Jawinton */
     if (ccNumber == 1)
     {
-      TOutStreamCapture.setMainArea(back.getLoggingArea() );
-      TOutStreamCapture.start(true);
+//      TOutStreamCapture.setMainArea(back.getLoggingArea() );
+//      TOutStreamCapture.start(true);
+    	// automatically connect to local file system.
+    	TConnectionData conData = new TConnectionData(parent, "localhost", -1,
+    	        TMiscTool.getUserName(), "",
+    	        ConnectionPluginManager.LOCAL_PLUGIN);
+    	cc.connect(conData);
     }
-    */
+    /* Jawinton */
     
     return cc;
   }

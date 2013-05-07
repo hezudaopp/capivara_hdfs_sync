@@ -69,6 +69,7 @@ import net.sf.jfilesync.event.TMessage;
 import net.sf.jfilesync.event.types.TStandardMessage;
 import net.sf.jfilesync.plugins.net.ConnectionPlugin;
 import net.sf.jfilesync.plugins.net.ConnectionPluginManager;
+import net.sf.jfilesync.plugins.net.items.THdfs_plugin;
 import net.sf.jfilesync.prop.LanguageBundle;
 import net.sf.jfilesync.settings.CapivaraPasswordStore;
 import net.sf.jfilesync.settings.MasterPasswordHandler;
@@ -80,7 +81,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
     private JList savedList;
     private final JTextField userField = new JTextField(20);;
     private final JTextField hostField = new JTextField(20);
-    private final JPasswordField passwordField = new JPasswordField(20);
+//    private final JPasswordField passwordField = new JPasswordField(20);	// Jawinton
     private final JComboBox protoCombo = new JComboBox();
     private final ConParams params;
 
@@ -90,8 +91,8 @@ public class UserHostsDialog extends JDialog implements ActionListener {
             .getMessage("label.host"));
     private final JLabel protoLabel = new JLabel(LanguageBundle.getInstance()
             .getMessage("label.protocol"));
-    private final JLabel passwdLabel = new JLabel(LanguageBundle.getInstance()
-            .getMessage("label.password"));
+//    private final JLabel passwdLabel = new JLabel(LanguageBundle.getInstance()
+//            .getMessage("label.password"));	// Jawinton
     
     private final JTextArea passwdHintArea = new JTextArea(LanguageBundle
             .getInstance().getMessage(
@@ -108,15 +109,17 @@ public class UserHostsDialog extends JDialog implements ActionListener {
     private final JButton deletebutton = new JButton(LanguageBundle
             .getInstance().getMessage("label.delete"));
 
-    private static final int standardPluginID = ConnectionPluginManager.J2SSH_SFTP_PLUGIN;
-    private final ConnectionPlugin standardPlugin = ConnectionPluginManager
-            .getConnectionModelInstance(standardPluginID);
+    /* Jawinton */
+    private static final int hdfsPluginId = ConnectionPluginManager.HDFS_PLUGIN;
+    private final ConnectionPlugin hdfsPlugin = ConnectionPluginManager
+            .getConnectionModelInstance(hdfsPluginId);
     private DefaultListModel listModel;
     private final JCheckBox portCheckBox = new JCheckBox(LanguageBundle
             .getInstance().getMessage("label.default"), true);
     private final JTextField portTextField = new JTextField(4);
 
-    private ConnectionPlugin activePlugin = standardPlugin;
+    private ConnectionPlugin activePlugin = hdfsPlugin;
+    /* Jawinton */
     private final java.util.List<ConnectionPlugin> pluginList = new ArrayList<ConnectionPlugin>();
 
     private final static Logger LOGGER = Logger.getLogger(UserHostsDialog.class
@@ -221,9 +224,10 @@ public class UserHostsDialog extends JDialog implements ActionListener {
         optionPanel.add(Box.createVerticalStrut(7));
         addToOptionPanel(optionPanel, protoLabel);
         addToOptionPanel(optionPanel, protoCombo);
-        optionPanel.add(Box.createVerticalStrut(7));
-        addToOptionPanel(optionPanel, passwdLabel);
-        addToOptionPanel(optionPanel, passwordField);
+        // Jawinton
+//        optionPanel.add(Box.createVerticalStrut(7));
+//        addToOptionPanel(optionPanel, passwdLabel);
+//        addToOptionPanel(optionPanel, passwordField);
         
         passwdHintArea.setEditable(false);
         passwdHintArea.setBorder(BorderFactory.createEtchedBorder());
@@ -398,38 +402,39 @@ public class UserHostsDialog extends JDialog implements ActionListener {
                     hostField.getText().trim(), port, userField.getText()
                             .trim());
 
-            final char[] passwdAr = passwordField.getPassword();
-            if (passwdAr != null && passwdAr.length > 0) {
-                final String passwdStr = new String(passwdAr);
-                try {
-
-                    String masterPassword = MasterPasswordHandler.getInstance()
-                            .requestMasterPassword(this);
-
-                    if (masterPassword == null) {
-                        if (MasterPasswordHandler.getInstance()
-                                .setOrChangePassword(this)) {
-                            masterPassword = MasterPasswordHandler
-                                    .getInstance().requestMasterPassword(this);
-                        }
-                    }
-
-                    if (masterPassword != null) {
-                        final String encodedPasswd = CapivaraPasswordStore
-                                .getInstance().encodePassword(passwdStr,
-                                        masterPassword);
-
-                        LOGGER.fine("encoded password: " + encodedPasswd);
-
-                        if (encodedPasswd != null) {
-                            conf.setPassword(encodedPasswd);
-                        }
-                    }
-
-                } catch (final PasswordStoreException pe) {
-                    LOGGER.log(Level.WARNING, pe.getMessage(), pe);
-                }
-            }
+            // Jawinton
+//            final char[] passwdAr = passwordField.getPassword();
+//            if (passwdAr != null && passwdAr.length > 0) {
+//                final String passwdStr = new String(passwdAr);
+//                try {
+//
+//                    String masterPassword = MasterPasswordHandler.getInstance()
+//                            .requestMasterPassword(this);
+//
+//                    if (masterPassword == null) {
+//                        if (MasterPasswordHandler.getInstance()
+//                                .setOrChangePassword(this)) {
+//                            masterPassword = MasterPasswordHandler
+//                                    .getInstance().requestMasterPassword(this);
+//                        }
+//                    }
+//
+//                    if (masterPassword != null) {
+//                        final String encodedPasswd = CapivaraPasswordStore
+//                                .getInstance().encodePassword(passwdStr,
+//                                        masterPassword);
+//
+//                        LOGGER.fine("encoded password: " + encodedPasswd);
+//
+//                        if (encodedPasswd != null) {
+//                            conf.setPassword(encodedPasswd);
+//                        }
+//                    }
+//
+//                } catch (final PasswordStoreException pe) {
+//                    LOGGER.log(Level.WARNING, pe.getMessage(), pe);
+//                }
+//            }
 
             if (insert) {
                 // add data
@@ -519,7 +524,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
         savebutton.setEnabled(false);
         hostField.setEnabled(false);
         userField.setEnabled(false);
-        passwordField.setEnabled(false);
+//        passwordField.setEnabled(false);
         protoCombo.setEnabled(false);
         
         final String desc = (String) savedList.getSelectedValue();
@@ -543,23 +548,24 @@ public class UserHostsDialog extends JDialog implements ActionListener {
                             .getDefaultPort()));
                 }
 
-                if (conConf[i].getPassword() != null) {
-                    try {
-                        final String masterPassword = MasterPasswordHandler
-                                .getInstance().requestMasterPassword(this);
-                        if (masterPassword != null) {
-                            final String conPasswd = CapivaraPasswordStore
-                                    .getInstance().decodePassword(
-                                            conConf[i].getPassword(),
-                                            masterPassword);
-                            passwordField.setText(conPasswd);
-                        }
-                    } catch (final PasswordStoreException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    passwordField.setText("");
-                }
+                // Jawinton
+//                if (conConf[i].getPassword() != null) {
+//                    try {
+//                        final String masterPassword = MasterPasswordHandler
+//                                .getInstance().requestMasterPassword(this);
+//                        if (masterPassword != null) {
+//                            final String conPasswd = CapivaraPasswordStore
+//                                    .getInstance().decodePassword(
+//                                            conConf[i].getPassword(),
+//                                            masterPassword);
+//                            passwordField.setText(conPasswd);
+//                        }
+//                    } catch (final PasswordStoreException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    passwordField.setText("");
+//                }
 
                 break;
             }
@@ -571,7 +577,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
         userField.setText("");
         hostField.setText("");
         for (int i = 0; i < pluginList.size(); i++) {
-            if ((pluginList.get(i)).getConnectionID() == standardPlugin
+            if ((pluginList.get(i)).getConnectionID() == hdfsPlugin
                     .getConnectionID()) {
                 protoCombo.setSelectedIndex(i);
                 setDefaultPortState(true);
@@ -585,7 +591,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
         hostField.setEnabled(true);
         userField.setEnabled(true);
         protoCombo.setEnabled(true);
-        passwordField.setEnabled(true);        
+//        passwordField.setEnabled(true);   // Jawinton     
     }
 
     private void setInitState() {
@@ -607,7 +613,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
         params.username = userField.getText().trim();
         params.protocol = getSelectedProtocolId();
         params.port = getSelectedPort();
-        params.password = String.valueOf(passwordField.getPassword());
+//        params.password = String.valueOf(passwordField.getPassword()); Jawinton
     }
 
 }
