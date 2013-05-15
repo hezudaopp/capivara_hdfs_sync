@@ -219,7 +219,7 @@ public class SyncOptionDialog extends JDialog implements ActionListener, SyncMet
   }
 
   private void enableMacExpressions(boolean enabled) {
-    System.out.println("enabled? " + enabled);
+//    System.out.println("enabled? " + enabled);	// Jawinton
     for (final String expString : ConfigDefinitions.MAC_EXCLUDE_LIST) {
       if (enabled) {
         addOnExpressionList.addExpression(new Expression(expString));

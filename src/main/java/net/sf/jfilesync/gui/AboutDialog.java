@@ -135,7 +135,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 
         // animated text positions
         public int TOP = 35; // offset from top - hide
-        public int BOTTOM = 55; // show
+        public int BOTTOM = 70; // show // Jawinton, 55 to 70
 
         AboutPanel() {
 
@@ -189,10 +189,10 @@ public class AboutDialog extends JDialog implements ActionListener {
 
             g.drawString(versionStr,
                     (getWidth() - fm.stringWidth(versionStr)) / 2,
-                    getHeight() - 14);
+                    getHeight() - 30);	// Jawinton, 14 to 30
 
             g.drawString(buildStr, (getWidth() - fm.stringWidth(buildStr)) / 2,
-                    getHeight() - 3);
+                    getHeight() - 15);	// Jawinton, 3 to 15 
 
             g = g.create((getWidth() - maxWidth) / 2, TOP, maxWidth,
                     getHeight() - TOP - BOTTOM);

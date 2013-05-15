@@ -368,7 +368,7 @@ public class SyncTreeExplorerFrame extends JDialog implements ActionListener,
     return pane;
   }
 
-  private void doSync() {
+  public void doSync() { // Jawinton, private to public
 
     final SyncOption syncOption = getSelectedSyncOption();
 
@@ -388,12 +388,14 @@ public class SyncTreeExplorerFrame extends JDialog implements ActionListener,
       final SyncAction[] l2 = syncOption.getRightActionList(rightDiffTree,
           direction);
 
-      final SyncActionDialog2 sad = new SyncActionDialog2(this, l1,
-          conDetails1, l2, conDetails2);
-      sad.setVisible(true);
+      /* Jawinton */
+//      final SyncActionDialog2 sad = new SyncActionDialog2(this, l1,
+//          conDetails1, l2, conDetails2);
+//      sad.setVisible(true);	
 
-      final int userOpt = sad.getUserChoice();
-      if (userOpt == SyncActionDialog2.ACTION_SYNC) {
+//      final int userOpt = sad.getUserChoice();
+//      if (userOpt == SyncActionDialog2.ACTION_SYNC) {
+      /* Jawinton */
 
         dialog = new SyncProgressDialog2(this);
         dialog.addTAbstractGUIElementListener(this);
@@ -407,8 +409,10 @@ public class SyncTreeExplorerFrame extends JDialog implements ActionListener,
         observer.addWorkerListener(this);
         observer.execute(currentWorker);
         dialog.enableGUIElement(true);
-
-      }
+        
+        /* Jawinton */
+//      }
+        /* Jawinton */
     }
 
   }
@@ -425,16 +429,21 @@ public class SyncTreeExplorerFrame extends JDialog implements ActionListener,
     return valid;
   }
 
+  /* Jawinton */
   private Direction getSelectedDirection() {
-    final DirectionOption dirOption = (DirectionOption) syncDirectionOptions
-        .getSelectedItem();
-    return dirOption.getDirection();
+	  return SyncOption.Direction.BIDIRECTIONAL;
+//    final DirectionOption dirOption = (DirectionOption) syncDirectionOptions
+//        .getSelectedItem();
+//    return dirOption.getDirection();
   }
 
+  /* Jawinton */
   private SyncOption getSelectedSyncOption() {
-    final String description = (String) syncChoice.getSelectedItem();
-    final SyncOption syncOption = syncOptions.getSyncOption(description);
-    return syncOption;
+//    final String description = (String) syncChoice.getSelectedItem();
+	  final String description = LanguageBundle.getInstance().getMessage(
+	          "sync.option.add_newer_files");
+	  final SyncOption syncOption = syncOptions.getSyncOption(description);
+	  return syncOption;
   }
 
   private void updateDirections(final SyncOption syncOption) {

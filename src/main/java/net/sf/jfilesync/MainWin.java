@@ -52,19 +52,19 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
+//import javax.swing.JCheckBox;
+//import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+//import javax.swing.JMenu;
+//import javax.swing.JMenuBar;
+//import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+//import javax.swing.JPasswordField;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
+//import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -90,7 +90,7 @@ import net.sf.jfilesync.engine.worker.DataCollectWorker;
 import net.sf.jfilesync.engine.worker.TAbstractDialogEvent;
 import net.sf.jfilesync.engine.worker.TAbstractGUIElementListener;
 import net.sf.jfilesync.engine.worker.events.TFileListEvent;
-import net.sf.jfilesync.event.QuickConnectListener;
+//import net.sf.jfilesync.event.QuickConnectListener;
 import net.sf.jfilesync.event.TEvent;
 import net.sf.jfilesync.event.TEventListener;
 import net.sf.jfilesync.event.TEventMulticaster;
@@ -101,10 +101,10 @@ import net.sf.jfilesync.event.types.ControlChangeEvent;
 import net.sf.jfilesync.event.types.QuickConnectMessage;
 import net.sf.jfilesync.gui.AboutDialog;
 import net.sf.jfilesync.gui.FileCopyProgressMonitor;
-import net.sf.jfilesync.gui.InfoDialog;
+//import net.sf.jfilesync.gui.InfoDialog;
 import net.sf.jfilesync.gui.KeyStrokeConfigLoader;
 import net.sf.jfilesync.gui.OptionsDialog;
-import net.sf.jfilesync.gui.TConnectDialog;
+//import net.sf.jfilesync.gui.TConnectDialog;
 import net.sf.jfilesync.gui.TControlCenter;
 import net.sf.jfilesync.gui.TControlCenterFactory;
 import net.sf.jfilesync.gui.TextViewFrame;
@@ -127,7 +127,7 @@ import net.sf.jfilesync.plugins.GeneralPlugin;
 import net.sf.jfilesync.plugins.net.AbstractConnectionProxy;
 import net.sf.jfilesync.plugins.net.ConnectionPlugin;
 import net.sf.jfilesync.plugins.net.ConnectionPluginManager;
-import net.sf.jfilesync.plugins.net.PluginConnectException;
+//import net.sf.jfilesync.plugins.net.PluginConnectException;
 import net.sf.jfilesync.plugins.net.TConnectionData;
 import net.sf.jfilesync.prop.LanguageBundle;
 import net.sf.jfilesync.settings.BuildInfoPropertiesReader;
@@ -143,6 +143,7 @@ import net.sf.jfilesync.settings.locale.LanguageDialog;
 import net.sf.jfilesync.sync2.ConcurrentSyncTreeBuilder;
 import net.sf.jfilesync.sync2.SyncComparator;
 import net.sf.jfilesync.sync2.SyncMethod;
+//import net.sf.jfilesync.sync2.SyncOption;
 import net.sf.jfilesync.sync2.SyncSettingsStore;
 import net.sf.jfilesync.sync2.SyncTree;
 import net.sf.jfilesync.sync2.diffs.SyncDiffTree;
@@ -166,7 +167,7 @@ public class MainWin extends JFrame implements ActionListener,
 		PrefixComboBoxListener {
 
 	private static final long serialVersionUID = 1L;
-	private final Dimension buttonDimension = new Dimension(34, 34);
+//	private final Dimension buttonDimension = new Dimension(34, 34);	// Jawinton
 	public static TConfig config = null;
 	public static KeyStrokeModel keyMap = null;
 
@@ -232,8 +233,9 @@ public class MainWin extends JFrame implements ActionListener,
 		mainPane = new JSplitPane(); // the main pain ;-)
 		JPanel mainContentPane = new JPanel(borderLayout1);
 
-		JMenuBar jMenuBar1 = new JMenuBar();
-		setupMenuBar(jMenuBar1);
+		// Jawinton
+//		JMenuBar jMenuBar1 = new JMenuBar();
+//		setupMenuBar(jMenuBar1);
 
 		// --------- Main Panel -----------
 		mainPane.setPreferredSize(new Dimension(1000, 600));
@@ -244,7 +246,7 @@ public class MainWin extends JFrame implements ActionListener,
 		mainPane.setRightComponent(rightBrowser);
 
 		setLocale(java.util.Locale.getDefault());
-		setJMenuBar(jMenuBar1);
+//		setJMenuBar(jMenuBar1);	// Jawinton
 		setContentPane(mainContentPane);
 
 		mainContentPane.setLayout(borderLayout1);
@@ -300,8 +302,8 @@ public class MainWin extends JFrame implements ActionListener,
 
 		// fill protoCombo
 		for (int i = 0; i < supProtos.length; i++) {
-			ConnectionPlugin pluginToAdd = ConnectionPluginManager
-					.getConnectionModelInstance(supProtos[i]);
+//			ConnectionPlugin pluginToAdd = ConnectionPluginManager
+//					.getConnectionModelInstance(supProtos[i]);
 
 			plugins[i] = ConnectionPluginManager
 					.getConnectionModelInstance(supProtos[i]);
@@ -363,6 +365,18 @@ public class MainWin extends JFrame implements ActionListener,
 				"label.favourites"));
         chooseHostButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         chooseHostButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        
+        JButton aboutButton = new JButton(LanguageBundle.getInstance()
+				.getMessage("menu.about"), new ImageIcon(getClass()
+				.getResource(
+						"/net/sf/jfilesync/gui/themes/default/about.png")));
+		aboutButton.addActionListener(this);
+		aboutButton.setToolTipText(LanguageBundle.getInstance().getMessage(
+				"menu.about"));
+		aboutButton.setActionCommand("aboutdiag");
+		aboutButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		aboutButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		aboutButton.setFocusable(false);
 		
 		toolBar.add(hostLabel);
 		toolBar.add(hostCombo);
@@ -374,6 +388,7 @@ public class MainWin extends JFrame implements ActionListener,
 		toolBar.addSeparator();
 		toolBar.add(syncButton);
 		toolBar.add(chooseHostButton);
+		toolBar.add(aboutButton);
 		/* Jawinton */
 
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -410,21 +425,25 @@ public class MainWin extends JFrame implements ActionListener,
 		setLocation(TWindowPositioner.getCenteredWindowPoint(this));
 	}
 
+	
+	/* Jawinton */
+	/*
 	private void setupMenuBar(JMenuBar menubar) {
 
-		final JMenu toolMenu = new JMenu();
+//		final JMenu toolMenu = new JMenu();
 		final JMenu helpMenu = new JMenu();
-		final JMenuItem optionItem = new JMenuItem();
+//		final JMenuItem optionItem = new JMenuItem();
 
 		// file menu
-		final JMenu fileMenu = new JMenu();
-		fileMenu.setText(LanguageBundle.getInstance().getMessage("menu.file"));
-		JMenuItem jMenuItem1 = new JMenuItem();
-		jMenuItem1
-				.setText(LanguageBundle.getInstance().getMessage("menu.exit"));
-		jMenuItem1.setActionCommand("exit");
-		jMenuItem1.addActionListener(this);
-		fileMenu.add(jMenuItem1);
+		// Jawinton
+//		final JMenu fileMenu = new JMenu();
+//		fileMenu.setText(LanguageBundle.getInstance().getMessage("menu.file"));
+//		JMenuItem jMenuItem1 = new JMenuItem();
+//		jMenuItem1
+//				.setText(LanguageBundle.getInstance().getMessage("menu.exit"));
+//		jMenuItem1.setActionCommand("exit");
+//		jMenuItem1.addActionListener(this);
+//		fileMenu.add(jMenuItem1);
 
 		// tool menu
 		// Jawinton
@@ -451,10 +470,11 @@ public class MainWin extends JFrame implements ActionListener,
 		helpMenu.add(aboutItem);
 		helpMenu.add(changelogItem);
 
-		menubar.add(fileMenu);
-		menubar.add(toolMenu);
+//		menubar.add(fileMenu);
+//		menubar.add(toolMenu);
 		menubar.add(helpMenu);
 	}
+	*/
 
 	// --------------------------------------------------------------------------
 
@@ -472,8 +492,9 @@ public class MainWin extends JFrame implements ActionListener,
 
 	protected void loadSettings() {
 		try {
-			final String userLang = config.getProgramSettings()
-					.getStringOption(TProgramSettings.OPTION_USER_LANG);
+//			final String userLang = config.getProgramSettings()
+//					.getStringOption(TProgramSettings.OPTION_USER_LANG);	// Jawinton
+			final String userLang = "zh_CN";
 
 			LanguageBundle.setLanguage(userLang);
 
@@ -1127,13 +1148,17 @@ public class MainWin extends JFrame implements ActionListener,
 			TControlCenter lc = leftBrowser.getFocusedControlCenter();
 			TControlCenter rc = rightBrowser.getFocusedControlCenter();
 
+			
 			SyncTreeExplorerFrame syncFrame = new SyncTreeExplorerFrame(this,
 					((SyncComparator) e.getSource()).getSyncID(), tree1,
 					diffTree1, tree2, diffTree2, lc.getConnection(),
 					lc.getConnectionDetails(), rc.getConnection(),
 					rc.getConnectionDetails(), chosenMethod.getSyncOptions());
-
-			syncFrame.setVisible(true);
+			// Jawinton
+			syncFrame.doSync();
+//			syncFrame.setVisible(true);
+//			final String description = (String) syncChoice.getSelectedItem();
+//		    final SyncOption syncOption = syncOptions.getSyncOption(description);
 			// if( syncFrame.hasSyncBeenExecuted() ) {
 			lc.refreshDataView();
 			rc.refreshDataView();
@@ -1486,7 +1511,8 @@ public class MainWin extends JFrame implements ActionListener,
 	}
 
 	// --------------------------------------------------------------------------
-
+	// Jawinton
+	/*
 	private static void showNoticeDialog(final JFrame w) {
 		try {
 			boolean showNote = config.getProgramSettings().getBooleanOption(
@@ -1501,7 +1527,8 @@ public class MainWin extends JFrame implements ActionListener,
 			LOGGER.warning(e.getMessage());
 		}
 	}
-
+	*/
+	
 	// --------------------------------------------------------------------------
 	public static void main(String args[]) {
 

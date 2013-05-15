@@ -94,10 +94,11 @@ public class CollectFilesPanel extends JPanel {
             GridBagConstraints gbc = new GridBagConstraints();
             setLayout(layout);
 
-            final Font origF = dirLabel.getFont();
-            final Font newF = new Font(origF.getFontName(), origF.getStyle(), 11);
-            dirLabel.setFont(newF);
-            filesLabel.setFont(newF);
+            // Jawinton If I set new font, chinese characters don't display well.
+//            final Font origF = dirLabel.getFont();
+//            final Font newF = new Font(origF.getFontName(), origF.getStyle(), 11);
+//            dirLabel.setFont(newF);
+//            filesLabel.setFont(newF);
 
             JPanel dirPanel = new JPanel();
             dirPanel.setLayout(new BoxLayout(dirPanel, BoxLayout.Y_AXIS));

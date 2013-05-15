@@ -286,7 +286,11 @@ public class TErrorHandling {
   
   static class ErrorReportDialog extends JDialog {
 
-    private JCheckBox ignoreCheckBox = new JCheckBox(
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;	// Jawinton
+	private JCheckBox ignoreCheckBox = new JCheckBox(
         LanguageBundle.getInstance().getMessage("error.ignore_subsequent"));
     private final String message;
     

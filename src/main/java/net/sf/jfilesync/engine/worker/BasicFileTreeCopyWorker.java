@@ -56,12 +56,13 @@ public class BasicFileTreeCopyWorker extends GWorker {
     CONFIRM, OVERRIDE_ALL, SKIP_ALL
   };
 
-  private ConfirmOverrideDialog cod;
-  private OVERRIDE_MODE mode_override = OVERRIDE_MODE.CONFIRM;
-  private boolean override = false;
+  // Jawinton
+//  private ConfirmOverrideDialog cod;
+//  private OVERRIDE_MODE mode_override = OVERRIDE_MODE.CONFIRM;
+//  private boolean override = false;
 
-  private final static Logger LOGGER = Logger
-      .getLogger(BasicFileTreeCopyWorker.class.getName());
+//  private final static Logger LOGGER = Logger
+//      .getLogger(BasicFileTreeCopyWorker.class.getName());
 
   public BasicFileTreeCopyWorker(Frame owner, AbstractConnectionProxy sourceCon,
       String sourceRoot, AbstractConnectionProxy targetCon, String targetRoot,
