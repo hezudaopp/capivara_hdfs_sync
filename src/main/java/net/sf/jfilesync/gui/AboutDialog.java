@@ -73,9 +73,9 @@ public class AboutDialog extends JDialog implements ActionListener {
 //            .getName());
     
     public AboutDialog(JFrame parent) {
-        super(parent, LanguageBundle.getInstance().getMessage(
+        super(parent, /*LanguageBundle.getInstance().getMessage(
                 "dialog.about.title")
-                + " " + ConfigDefinitions.PROGRAM_NAME, true);
+                + */" VISG云同步" /*+ ConfigDefinitions.PROGRAM_NAME*/, true);  //改
 
         JPanel content = new JPanel(new BorderLayout());
         content.setBorder(new EmptyBorder(12, 12, 12, 12));
@@ -97,7 +97,7 @@ public class AboutDialog extends JDialog implements ActionListener {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         buttonPanel.add(close);
-        buttonPanel.add(license);
+       // buttonPanel.add(license);
         content.add(BorderLayout.SOUTH, buttonPanel);
 
         pack();
@@ -144,7 +144,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 
             setBorder(new MatteBorder(1, 1, 1, 1, Color.gray));
             
-            text.add(ConfigDefinitions.PROGRAM_NAME);
+            //text.add(ConfigDefinitions.PROGRAM_NAME);
             loadAboutText();
             scrollPosition = -250;
             
@@ -187,12 +187,12 @@ public class AboutDialog extends JDialog implements ActionListener {
 
             fm = g.getFontMetrics();
 
-            g.drawString(versionStr,
-                    (getWidth() - fm.stringWidth(versionStr)) / 2,
-                    getHeight() - 30);	// Jawinton, 14 to 30
+            //g.drawString(versionStr,
+              //      (getWidth() - fm.stringWidth(versionStr)) / 2,
+                //    getHeight() - 30);	// Jawinton, 14 to 30
 
-            g.drawString(buildStr, (getWidth() - fm.stringWidth(buildStr)) / 2,
-                    getHeight() - 15);	// Jawinton, 3 to 15 
+            //g.drawString(buildStr, (getWidth() - fm.stringWidth(buildStr)) / 2,
+              //      getHeight() - 15);	// Jawinton, 3 to 15 
 
             g = g.create((getWidth() - maxWidth) / 2, TOP, maxWidth,
                     getHeight() - TOP - BOTTOM);

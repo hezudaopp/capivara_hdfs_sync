@@ -81,7 +81,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
     private JList savedList;
     private final JTextField userField = new JTextField(20);;
     private final JTextField hostField = new JTextField(20);
-//    private final JPasswordField passwordField = new JPasswordField(20);	// Jawinton
+    private final JPasswordField passwordField = new JPasswordField(20);	// Jawinton
     private final JComboBox protoCombo = new JComboBox();
     private final ConParams params;
 
@@ -91,11 +91,11 @@ public class UserHostsDialog extends JDialog implements ActionListener {
             .getMessage("label.host"));
     private final JLabel protoLabel = new JLabel(LanguageBundle.getInstance()
             .getMessage("label.protocol"));
-//    private final JLabel passwdLabel = new JLabel(LanguageBundle.getInstance()
-//            .getMessage("label.password"));	// Jawinton
+    private final JLabel passwdLabel = new JLabel(LanguageBundle.getInstance()
+            .getMessage("label.password"));	// Jawinton
     
     private final JTextArea passwdHintArea = new JTextArea(LanguageBundle
-            .getInstance().getMessage(
+           .getInstance().getMessage(
                     "window.dialog.user_host_settings.password_hint"));
 
     private final JButton okbutton = new JButton(LanguageBundle.getInstance()
@@ -111,7 +111,7 @@ public class UserHostsDialog extends JDialog implements ActionListener {
 
     /* Jawinton */
     private static final int hdfsPluginId = ConnectionPluginManager.HDFS_PLUGIN;
-    private final ConnectionPlugin hdfsPlugin = ConnectionPluginManager
+    private final ConnectionPlugin hdfsPlugin = ConnectionPluginManager	
             .getConnectionModelInstance(hdfsPluginId);
     private DefaultListModel listModel;
     private final JCheckBox portCheckBox = new JCheckBox(LanguageBundle
@@ -225,13 +225,13 @@ public class UserHostsDialog extends JDialog implements ActionListener {
         addToOptionPanel(optionPanel, protoLabel);
         addToOptionPanel(optionPanel, protoCombo);
         // Jawinton
-//        optionPanel.add(Box.createVerticalStrut(7));
-//        addToOptionPanel(optionPanel, passwdLabel);
-//        addToOptionPanel(optionPanel, passwordField);
+        optionPanel.add(Box.createVerticalStrut(7));
+        addToOptionPanel(optionPanel, passwdLabel);
+        addToOptionPanel(optionPanel, passwordField);
         
         passwdHintArea.setEditable(false);
         passwdHintArea.setBorder(BorderFactory.createEtchedBorder());
-        addToOptionPanel(optionPanel, passwdHintArea);
+        //addToOptionPanel(optionPanel, passwdHintArea);
         
         final JPanel rightSplitPane = new JPanel();
         rightSplitPane.add(optionPanel, BorderLayout.NORTH);
